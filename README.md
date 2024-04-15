@@ -36,3 +36,11 @@ make
 ```
 2. Then in your Jupiter Notebook, or Jupiter Lab, Make sure select the Kotlin Kernel, and Restart every build you make, 
 and run the cells.
+
+
+## Parser Tree
+![Parser Tree](./images/parseTree.png)
+
+Original Idea was to create a simple programming language that can be used to teach programming to beginners,
+in spanish. However, the project was not completed, and the language is not fully functional. The keywords are not
+translated to Spanish, for lack of time. Next steps would be to complete the language,translate keywords, and add more features to it.
