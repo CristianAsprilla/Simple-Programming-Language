@@ -79,6 +79,33 @@ class Invoke(
     }
 }
 
+class FuncCall(
+    val funcname: String,
+    val arguments: List<Expr>
+) : Expr() {
+    override fun eval(runtime: Runtime): Data {
+        val f = runtime.symbolTable[funcname]
+        if (f == null) {
+            throw Exception("$funcname does not exist.")
+        }
+        if (f !is FuncData) {
+            throw Exception("$funcname is not a function.")
+        }
+        if (arguments.size != f.parameters.size) {
+            throw Exception("$funcname expects ${f.parameters.size} arguments, but ${arguments.size} given.")
+        }
+
+        // Evaluate each argument to a data
+        val argumentData = arguments.map {
+            it.eval(runtime)
+        }
+
+        // Create a subscope and evaluate the body using the subscope
+        return f.body.eval(runtime.subscope(f.parameters.zip(argumentData).toMap()))
+    }
+}
+
+
 enum class Operator {
     ADD,
     SUB,
