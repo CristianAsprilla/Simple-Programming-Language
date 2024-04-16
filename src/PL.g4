@@ -9,8 +9,9 @@ import backend.*;
 
 program returns [Expr expr]
     : {List<Expr> statements = new ArrayList<Expr>();}
-        (statement SEMI? {statements.add($statement.expr);})+ EOF
+        (statement SEMI? {statements.add($statement.expr);})+
         {$expr = new Block(statements);}
+    | EOF
     ;
 
 expression returns [Expr value]
